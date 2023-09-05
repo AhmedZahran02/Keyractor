@@ -20,12 +20,12 @@ from pynput import mouse
 import pyperclip
 import time
 
-tmp = tempfile.gettempdir()
-if not os.path.exists(os.path.join(tmp, "pkl")):
-    mkdir(os.path.join(tmp, "pkl"))
-currentID = 0
-file = ...
-lock = Lock()
+# tmp = tempfile.gettempdir()
+# if not os.path.exists(os.path.join(tmp, "pkl")):
+#     mkdir(os.path.join(tmp, "pkl"))
+# currentID = 0
+# file = ...
+# lock = Lock()
 
 
 
@@ -259,35 +259,10 @@ class VirtualTextFieldObject:
             self.reset_text()
 
 
-def openFile():
-    global file
-    file = open(os.path.join(tmp, "pkl", str("b" + str(currentID))), "wb")
-
-
-def closeFile():
-    global file
-    file.close()
-
-
-def writeToFile(x):
-    if not type(x) is KeyObject:
-        print("gimme KeyObject you stupid fk")
-        return
-    b = x.toBytes()
-    global file
-    lock.acquire()
-    try:
-        file.write(b)
-    except any:
-        print("Error writing in file")
-
-    lock.release()
-
-
 def textHandler(text):
     if len(text) == 0:
         return
-    
+
     print(f"submitted: \"{text}\"")
 
 
@@ -296,14 +271,10 @@ textfield = VirtualTextFieldObject(textHandler)
 
 def handleKey(x):
     global textfield
-    # print(vars(x))
+
     r = KeyObject()
     r.fromKeyboard(x, False)
-    # r.print()
     textfield.onKey(r)
-
-    # print(textfield.text)
-    # writeToFile(r)
 
 
 def handleMouseKey(x, y, button, pressed):
@@ -315,20 +286,12 @@ def handleMouseKey(x, y, button, pressed):
 
 
 if __name__ == "__main__":
-    print("Cache Dir : " + tmp)
-    openFile()
-    writeToFile(KeyObject())
+    # print("Cache Dir : " + tmp)
 
     listener = keyboard.Listener(on_press=handleKey)
     listener.start()
 
     listener2 = mouse.Listener(on_click=handleMouseKey)
     listener2.start()
-
-    # listener.join()
-    # listener2.join()
-
-    # write_in_file("why are we still here")
-    # write_in_file("why are we still here")
 
     input()
