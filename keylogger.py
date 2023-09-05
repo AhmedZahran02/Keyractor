@@ -38,9 +38,8 @@ def handleKey(key):
     print(key)
     global word
     if hasattr(key, "char"):
-        if key.char == '\x03' or key.char == '\x13' or key.char == '\x01' or key.char == '\x18':
-            # skip
-            print("ctrl chars skipped")
+        if key.char.isalpha():
+            word += key.char
         elif key.char == '\x16':
             # clipboard checking
             print("ctrl + v")
@@ -52,7 +51,9 @@ def handleKey(key):
             if isinstance(data, str):
                 word += str(data)
         else:
-            word += key.char
+            # skip
+            print("ctrl chars skipped")  
+        
     elif key == keyboard.Key.backspace and len(word) > 0:
         word = word.rstrip(word[-1])
     elif key == keyboard.Key.space and len(word) != 0:
