@@ -1,27 +1,19 @@
 from threading import Lock
-from pathlib import Path
-# required = {'pynput', 'pyperclip'}
-# installed = {pkg.key for pkg in pkg_resources.working_set}
-# missing = required - installed
+import pkg_resources
 
-# if missing:
-#     python = sys.executable
-#     subprocess.check_call(
-#         [python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
+required = {'pynput', 'pyperclip'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+
+if missing:
+    python = sys.executable
+    subprocess.check_call(
+        [python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
 
 from pynput import keyboard
 from pynput import mouse
 import pyperclip
 import time
-
-# tmp = tempfile.gettempdir()
-# if not os.path.exists(os.path.join(tmp, "pkl")):
-#     mkdir(os.path.join(tmp, "pkl"))
-# currentID = 0
-# file = ...
-# lock = Lock()
-
-
 
 class KeyObjectConst:
     """
@@ -260,6 +252,10 @@ def textHandler(text):
     current_working_directory += "\\out.txt"
     file = open(str(current_working_directory),'a')
     file.write(str(text)+"\n")
+    current_working_directory = str(Path.cwd())
+    current_working_directory += "\\out.txt"
+    file = open(str(current_working_directory),'a')
+    file.write(str(text)+"\n")
     print(f"submitted: \"{text}\"")
 
 
@@ -291,5 +287,4 @@ if __name__ == "__main__":
     listener2 = mouse.Listener(on_click=handleMouseKey)
     listener2.start()
 
-    while 1:
-        NotImplemented
+    listener.join()
