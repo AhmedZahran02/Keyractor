@@ -67,19 +67,6 @@ def generate_function(start_index, spaces_before):
     functions_entities.append([function_name,function_body,start, start_index - spaces_counter])
     return start_index
 
-
-def handleMatcher(matching, char):
-    if matching == 0 and char == 'd':
-        matching = matching + 1
-    elif matching == 1 and char == 'e':
-        matching = matching + 1
-    elif matching == 2 and char == 'f':
-        matching = matching + 1
-    else:
-        matching = 0
-    return matching
-
-
 def main_func():
     global functions_entities,main_body
     spaces = 0
