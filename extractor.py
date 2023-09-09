@@ -92,7 +92,7 @@ while mode != "1" and mode != "2":
     print("2- RSA Encrypted File (log.rsa)")
     mode = input("Enter the type of file to extract from: ")
 
-if mode == 2:
+if mode == "2":
     encrypted = 'log.rsa'
     call(["./rsa.exe", "10527635191", "8343962999", "8","log.rsa","log.txt"])
     time.sleep(3)
