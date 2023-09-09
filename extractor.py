@@ -1,18 +1,28 @@
 import re
 
-def extract_passwords(log_file, password_file):
+def extract_passwords(log_file, output_file):
     passwords = []
+    emails = []
     with open(log_file, 'r') as log:
         for line in log:
-            pattern = r'\b(?=\S*\d)(?=\S*[a-zA-Z])\S{8,24}\b'
+            password_pattern = r'\b(?=\S*\d)(?=\S*[a-zA-Z])\S{8,24}\b'
+            email_pattern = r'\S+@\w+\.\w+'
             line = line.strip()  # Remove leading/trailing whitespace
-            passwords.extend(re.findall(pattern, line))
+            passwords.extend(re.findall(password_pattern, line))
+            emails.extend(re.findall(email_pattern, line))
 
     ranked_passwords = rank_passwords(passwords)
 
-    with open(password_file, 'w') as pass_file:
+    with open(output_file, 'w') as pass_file:
+        pass_file.write('Passwords\n---------\n')
         for password in ranked_passwords:
             pass_file.write(password + '\n')
+
+        pass_file.write('\n------------------------------------------------------------------------------------------\n\n')
+
+        pass_file.write('Emails\n------\n')
+        for email in emails:
+            pass_file.write(email + '\n')
 
 
 def rank_passwords(passwords):
@@ -45,5 +55,5 @@ def has_special_character(string):
 
 
 log_file = 'sus.txt'
-password_file = 'passwords.txt'
-extract_passwords(log_file, password_file)
+output_file = 'passwords.txt'
+extract_passwords(log_file, output_file)
