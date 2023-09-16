@@ -43,7 +43,7 @@ def get_running_exes():
         try:
             process_info = proc.as_dict(attrs=['name', 'exe'])
             process = psutil.Process(proc.pid)
-            if process_info['exe'] and not "SYSTEM" in proc.username():
+            if process_info['exe'] and not "SYSTEM" in proc.username() and proc.name() != "Discord.exe":
                 pid = proc.pid
                 name = proc.name()
                 exes.append((proc.name(),process_info['exe'],pid))
