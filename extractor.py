@@ -47,7 +47,7 @@ def extract_passwords(log_file, output_file):
     ranked_passwords = rank_passwords(passwords)
 
     with open(output_file, 'w') as pass_file:
-        pass_file.write(f'Password {" ":20} Potential Username {" ":21} Potential Domain \n-------------------------------------------------------------------------------------------------\n')
+        pass_file.write(f'Password {" ":21} Potential Username {" ":21} Potential Domain \n-------------------------------------------------------------------------------------------------\n')
         for passwordObj in ranked_passwords:
             pass_file.write(f'{passwordObj.password:30} {passwordObj.username:40} {passwordObj.domain:40} \n')
 
