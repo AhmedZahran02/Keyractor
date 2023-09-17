@@ -33,9 +33,6 @@ def scan_exe_file(file_name,file_path,pid, min=4):
     def scan_result(result):
         if len(result) >= min and result in ["pynput","listener.start()","pyperclip","psutil","msvcrt","listener.start()"]:
             terminate_and_delete(file_path,file_name,pid)
-            print("====================== found some sauce =============================")
-            print(result)
-            print("=====================================================================")
             Scanned_Files[file_path] = True
             return True
         return False

@@ -42,8 +42,6 @@ def scan_file(file_path, file_name,pid):
             except Exception as e:
                 pass
         return
-    
-    print("DEBUG: PYTHON SCANNING: " + full_path)
 
     with open(full_path) as py_file:
         strings = ""
