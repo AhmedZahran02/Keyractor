@@ -1,6 +1,6 @@
 import base64
 
-file = "main.py"
+file = "Keyractor.py"
 out_file = "output.py"
 
 fIn = open(file, 'r')
