@@ -26,9 +26,8 @@ Keyractor that is keylogging application that can detect user input and extract 
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
+- [Developers](#Developers)
 
 ## Installation
 
