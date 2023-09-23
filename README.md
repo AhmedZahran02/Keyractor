@@ -114,7 +114,7 @@ $ cd Keyractor
     <a href="https://github.com/AbdoWise-z" target="_black">
     <img src="https://github.com/AbdoWise-z.png" width="150px;" alt="AbdoWise-z"/>
     <br />
-    <sub><b>Abd Elrahman Mohamed</b></sub></a>
+    <sub><b>Abdulrahman Mohamed</b></sub></a>
     </td>
     </td>
     </tr>
