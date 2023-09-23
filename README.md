@@ -81,6 +81,8 @@ $ cd Keyractor
     python -m nuitka --mingw64 .\Keyractor.py --standalone --onefile --windows-disable-console
   ```
 
+- you need to copy rsa.exe to the output deployment folder from nutika
+
 ## Contact
   - Email: aozaoz2017@gmail.com
     <br/>
