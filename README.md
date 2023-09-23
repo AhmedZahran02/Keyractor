@@ -9,11 +9,11 @@ Keyractor that is keylogging application that can detect user input and extract 
 
 <div align="center">
 
-[![GitHub issues](https://img.shields.io/github/contributors/ahmedr2001/Search_Engine_Bolt)](https://github.com/ahmedr2001/Search_Engine_Bolt/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/ahmedr2001/Search_Engine_Bolt)](https://github.com/ahmedr2001/Search_Engine_Bolt/issues)
-[![GitHub forks](https://img.shields.io/github/forks/ahmedr2001/Search_Engine_Bolt)](https://github.com/ahmedr2001/Search_Engine_Bolt/network)
-[![GitHub stars](https://img.shields.io/github/stars/ahmedr2001/Search_Engine_Bolt)](https://github.com/ahmedr2001/Search_Engine_Bolt/stargazers)
-[![GitHub license](https://img.shields.io/github/license/ahmedr2001/Search_Engine_Bolt)](https://github.com/ahmedr2001/Search_Engine_Bolt/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/contributors/AhmedZahran02/Keyractor)](https://github.com/AhmedZahran02/Keyractor/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/AhmedZahran02/Keyractor)](https://github.com/AhmedZahran02/Keyractor/issues)
+[![GitHub forks](https://img.shields.io/github/forks/AhmedZahran02/Keyractor)](https://github.com/AhmedZahran02/Keyractor/network)
+[![GitHub stars](https://img.shields.io/github/stars/AhmedZahran02/Keyractor)](https://github.com/AhmedZahran02/Keyractor/stargazers)
+[![GitHub license](https://img.shields.io/github/license/AhmedZahran02/Keyractor)](https://github.com/AhmedZahran02/Keyractor/blob/main/LICENSE)
 
 </div>
 
