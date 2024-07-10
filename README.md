@@ -1,11 +1,9 @@
 
-  <h3 align="center"> Keyractor </h3>
+<h3 align="center"> Keyractor </h3>
 
-  <p align="center">
-Keyractor that is keylogging application that can detect user input and extract suspected username and password and sent it by email to the attacker, the app run in the background and has the icon of famous application so the normal user cannot distinguish it from the original one.
-  </p>
+<p align="center">
+Keyractor is a keylogging application that can detect user input and extract suspected usernames and passwords then send them by email to the attacker. The app runs in the background and has the name and icon of a well-known application so normal users cannot distinguish it from the original one.
 </p>
-
 
 <div align="center">
 
